@@ -1,4 +1,9 @@
-var builder = WebApplication.CreateBuilder(args);
+// creates a web application builder class which is then
+// used to inject the dependencies into the services collection
+using Microsoft.EntityFrameworkCore;
+using NzWalks.API.Data;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -6,6 +11,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// // Inject DbContext class into the services collection
+builder.Services.AddDbContext<NzWalksDbContext>(options =>
+{
+  options.UseSqlServer(builder.Configuration.GetConnectionString("NzWalks"));
+});
 
 var app = builder.Build();
 
@@ -21,5 +32,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+// Finally we run the application
 app.Run();
