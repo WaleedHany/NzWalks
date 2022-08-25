@@ -2,6 +2,7 @@
 // used to inject the dependencies into the services collection
 using Microsoft.EntityFrameworkCore;
 using NzWalks.API.Data;
+using NzWalks.API.Repositories;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,11 @@ builder.Services.AddDbContext<NzWalksDbContext>(options =>
 {
   options.UseSqlServer(builder.Configuration.GetConnectionString("NzWalks"));
 });
+
+// // Inject repositories
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+// // Inject a profile mapper
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
