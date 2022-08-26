@@ -26,7 +26,7 @@ namespace NzWalks.API.Repositories
       var walk = await _nzWalksDbContext.Walks.FindAsync(id);
       if (walk == null) return null;
       // Delete region from data base
-      _nzWalksDbContext.Regions.Remove(walk);
+      _nzWalksDbContext.Walks.Remove(walk);
       await _nzWalksDbContext.SaveChangesAsync();
       return walk;
     }
