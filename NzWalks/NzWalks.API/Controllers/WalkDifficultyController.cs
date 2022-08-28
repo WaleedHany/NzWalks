@@ -40,6 +40,10 @@ namespace NzWalks.API.Controllers
     public async Task<IActionResult> UpdateWalkDifficultyAsync
       ([FromRoute] Guid id, [FromBody] AddWalkDifficultyRequest walkDifficultyRequest)
     {
+      if(!ValidateAddWalkDifficultyAsync(walkDifficultyRequest))
+      {
+        return BadRequest(ModelState);
+      }
       // Request(DTO) to Domain Model
       var walkDiff = new Models.Domain.WalkDifficulty()
       {
@@ -71,5 +75,27 @@ namespace NzWalks.API.Controllers
       // return Ok response
       return Ok(walkDiffDTO);
     }
+
+#region Validations
+    private bool ValidateAddWalkDifficultyAsync(AddWalkDifficultyRequest walkDiffRequest)
+    {
+      if (walkDiffRequest == null)
+      {
+        ModelState.AddModelError(nameof(walkDiffRequest),
+          $"Data is required.");
+        return false;
+      }
+
+      if (string.IsNullOrWhiteSpace(walkDiffRequest.Code))
+      {
+        ModelState.AddModelError(nameof(walkDiffRequest.Code),
+          $"{nameof(walkDiffRequest.Code)} is required.");
+      }
+
+      if (ModelState.ErrorCount > 0) return false;
+      return true;
+    }
+
+#endregion
   }
 }
