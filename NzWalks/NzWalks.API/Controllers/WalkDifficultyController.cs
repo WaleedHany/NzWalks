@@ -40,10 +40,11 @@ namespace NzWalks.API.Controllers
     public async Task<IActionResult> UpdateWalkDifficultyAsync
       ([FromRoute] Guid id, [FromBody] AddWalkDifficultyRequest walkDifficultyRequest)
     {
-      if(!ValidateAddWalkDifficultyAsync(walkDifficultyRequest))
-      {
-        return BadRequest(ModelState);
-      }
+      //if(!ValidateAddWalkDifficultyAsync(walkDifficultyRequest))
+      //{
+      //  return BadRequest(ModelState);
+      //}
+
       // Request(DTO) to Domain Model
       var walkDiff = new Models.Domain.WalkDifficulty()
       {

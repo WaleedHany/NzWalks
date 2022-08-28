@@ -117,24 +117,24 @@ namespace NzWalks.API.Controllers
 
     private async Task<bool> ValidateAddWalkAsync(AddWalksRequest walkRequest)
     {
-      if(walkRequest == null)
-      {
-        ModelState.AddModelError(nameof(walkRequest),
-          $"Must have a value.");
-        return false;
-      }
+      //if(walkRequest == null)
+      //{
+      //  ModelState.AddModelError(nameof(walkRequest),
+      //    $"Must have a value.");
+      //  return false;
+      //}
 
-      if (string.IsNullOrWhiteSpace(walkRequest.Name))
-      {
-        ModelState.AddModelError(nameof(walkRequest.Name),
-          $"{nameof(walkRequest.Name)} can not be null or empty or white space.");
-      }
+      //if (string.IsNullOrWhiteSpace(walkRequest.Name))
+      //{
+      //  ModelState.AddModelError(nameof(walkRequest.Name),
+      //    $"{nameof(walkRequest.Name)} can not be null or empty or white space.");
+      //}
 
-      if (walkRequest.Length <= 0)
-      {
-        ModelState.AddModelError(nameof(walkRequest.Length),
-          $"{nameof(walkRequest.Length)} can not be less than or equal zero.");
-      }
+      //if (walkRequest.Length <= 0)
+      //{
+      //  ModelState.AddModelError(nameof(walkRequest.Length),
+      //    $"{nameof(walkRequest.Length)} can not be less than or equal zero.");
+      //}
 
       var region = await _region.GetAsync(walkRequest.RegionId);
       if (region == null)
